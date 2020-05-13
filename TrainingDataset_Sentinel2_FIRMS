@@ -3,7 +3,6 @@
 //Date: Feb 2020 - May 2020;
 
 //______Import SHP Australian's States__________________________________________
-
 var Australia_shp = ee.FeatureCollection("users/sulovaandrea/Australia_Polygon");
 
 //______Import States in Australia____________________________________________
@@ -11,16 +10,13 @@ var Australia_shp = ee.FeatureCollection("users/sulovaandrea/Australia_Polygon")
 var Capital_AUS = Australia_shp.filterMetadata("name","equals","Australian Capital Territory");
 var Victoria = Australia_shp.filterMetadata("name","equals","Victoria")
 var NewSouthWales = Australia_shp.filterMetadata("name","equals","New South Wales")
-
 var Queensland = Australia_shp.filterMetadata("name","equals","Queensland")
 var South_AUS = Australia_shp.filterMetadata("name","equals","South Australia")
-
 var Northen_AUS = Australia_shp.filterMetadata("name","equals","Northern Territory")
 var Western_AUS = Australia_shp.filterMetadata("name","equals","Western Australia")
 
 var Australia_Mainland= Capital_AUS.merge(Victoria).merge(NewSouthWales).merge(South_AUS).merge(Queensland)
                         .merge(Western_AUS).merge(Northen_AUS)
-
 Map.addLayer(Australia_Mainland,{pallete: '00000', strokeWidth: 2}, 'Australia Mainland',1);
 
 //Part1
@@ -70,8 +66,7 @@ function DeleteClouds(image) {
   var cloudBitMask = 1 << 10;
   var cirrusBitMask = 1 << 11;
   var mask = QA60Band.bitwiseAnd(cloudBitMask).eq(0).and(QA60Band.bitwiseAnd(cirrusBitMask).eq(0));
-  return image.updateMask(mask).copyProperties(image, ["system:time_start"]);
-}
+  return image.updateMask(mask).copyProperties(image, ["system:time_start"]);}
 
 //Pre-Post Fire applying Cloud/Cirrus mask_____________________________________
 var Collection_CloudMask = S2_Collection_Date.map(DeleteClouds).mosaic().clip(Australia);
@@ -185,7 +180,6 @@ var FireRandomPoints = ee.FeatureCollection.randomPoints(BurntAreasFilter,300);
 var getProperties = function(feature) {var point = feature.geometry();
   return ee.Feature(point).set('Start_Date',Start_I).set('fire',1)};
 
-
 var FireRandomPointsPro = FireRandomPoints.map(getProperties); 
 //Map.addLayer(FireRandomPointsPro, {color: 'red', strokeWidth: 1},'Fire Random Points',0);
 
@@ -232,15 +226,13 @@ Export.table.toDrive({
   description:'AUS_Points_Sep_1',
   fileFormat: 'CSV'});
   
-  var point = ee.FeatureCollection("users/sulovaandrea/TrainingDataset")
+var point = ee.FeatureCollection("users/sulovaandrea/TrainingDataset")
 print('Number fo training dataset: ', point.size())
 
 var No_fire_point = point.filterMetadata("fire","equals",0)
-
 Map.addLayer(No_fire_point, {color:'649d66',size:1}, 'No-Fire Points',1);
 
 var active_fire_point = point.filterMetadata("fire","equals",1)
-//var active_fire_point = active_fire_point.filterMetadata("Start_Date","equals",'2019-09-01T00:00:00')
 Map.addLayer(active_fire_point, {color:'ffd31d',size:1}, 'Active Fire Points',1);
 
 Map.addLayer(ActiveFire, {palette: 'd63447'}, 'Active Fire S2',0);
