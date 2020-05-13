@@ -18,6 +18,11 @@ var South_AUS = Australia_shp.filterMetadata("name","equals","South Australia")
 var Northen_AUS = Australia_shp.filterMetadata("name","equals","Northern Territory")
 var Western_AUS = Australia_shp.filterMetadata("name","equals","Western Australia")
 
+var Australia_Mainland= Capital_AUS.merge(Victoria).merge(NewSouthWales).merge(South_AUS).merge(Queensland)
+                        .merge(Western_AUS).merge(Northen_AUS)
+
+Map.addLayer(Australia_Mainland,{pallete: '00000', strokeWidth: 2}, 'Australia Mainland',1);
+
 //Part1
 var Australia = Capital_AUS.merge(Victoria).merge(NewSouthWales)
 //Part2
@@ -30,15 +35,15 @@ Map.centerObject(Australia,5)
 
 //______Before Fire____After Fire____________________________
 
-var Start_I = ee.Date('2019-08-01');   
-var End_I =  ee.Date('2019-09-10');  
+var Start_I = ee.Date('2019-08-28');   
+var End_I =  ee.Date('2019-09-15');  
 
-///_____FIRMS_________________________________________________
+///_____FIRMS MONTHLY_________________________________________________
 
 var FIRMS = ee.ImageCollection('FIRMS').select('T21').filterBounds(Australia)
 var FIRMS = FIRMS.filterDate(Start_I,End_I);
 var FIRMScount = ee.Image(FIRMS.count())
-Map.addLayer(FIRMScount,{pallete: '937d14', strokeWidth: 2}, 'FIRMS count',0);
+Map.addLayer(FIRMScount,{pallete: '937d14', strokeWidth: 2}, 'FIRMS Monthly Hotspot-Raster',0);
 
 var FIRMSbinary = FIRMScount.eq(FIRMScount).rename('FIRMS_binary_alert')
 var FIRMS_vector = FIRMSbinary.reduceToVectors({
@@ -46,6 +51,8 @@ var FIRMS_vector = FIRMSbinary.reduceToVectors({
   scale: 1000,
   geometryType: 'polygon',
   eightConnected: false,});
+
+Map.addLayer(FIRMS_vector,{pallete: '937d14', strokeWidth: 2}, 'FIRMS Monthly Hotspot-Vector',0);
 
 //______Sentinel-2 Collection____________________________________________________
 
@@ -99,7 +106,7 @@ var S2function = function(image){
 
 var ActiveFire = S2_Collection_Date.map(S2function).mosaic();
 var ActiveFire = FIRMScount.updateMask(ActiveFire.eq(1));
-Map.addLayer(ActiveFire, {palette: 'red'}, 'Active Fire S2',0);
+//Map.addLayer(ActiveFire, {palette: 'red'}, 'Active Fire S2',0);
 
 //______NBR__________________________________________________
 
@@ -163,21 +170,19 @@ var burnt_vectors = burned_mask.addBands(dNBR).reduceToVectors({
   reducer: ee.Reducer.mean(),
   maxPixels: 50000000000});
   
-Map.addLayer(burnt_vectors.draw({color: 'red', strokeWidth: 2}), {},'Burn Areas dNBR', 0);
+Map.addLayer(burnt_vectors.draw({color: 'red', strokeWidth: 1}), {},'Threshold Areas dNBR', 0);
 
-var areas = function(feature) {
-  var area = feature.geometry().area(10);
+var areas = function(feature) {var area = feature.geometry().area(10);
   return feature.set('area', area);};
   
 var BurntAreas = burnt_vectors.map(areas);  
 var BurntAreasFilter= BurntAreas.filter(ee.Filter.gt('area', 250000));
-Map.addLayer(FIRMS_vector,{color: '000839', strokeWidth: 3}, 'FIRMS vector',0);
-Map.addLayer(BurntAreasFilter.draw({color: 'yellow', strokeWidth: 2}), {},'Burn Areas Filter 1000000', 0);  
+Map.addLayer(FIRMS_vector,{color: '000839', strokeWidth: 3}, 'FIRMS Monthly vector',0);
+Map.addLayer(BurntAreasFilter.draw({color: 'blue', strokeWidth: 1}), {},'Burn Areas Filter 250000', 0);  
  
 var FireRandomPoints = ee.FeatureCollection.randomPoints(BurntAreasFilter,300);
 
-var getProperties = function(feature) {
-  var point = feature.geometry();
+var getProperties = function(feature) {var point = feature.geometry();
   return ee.Feature(point).set('Start_Date',Start_I).set('fire',1)};
 
 
@@ -186,7 +191,19 @@ var FireRandomPointsPro = FireRandomPoints.map(getProperties);
 
 //__________________ Vector mask of no fire areas_________________________________
 
-var FIRMS_FIRE= FIRMScount.eq(0)
+var FIRMS_season = ee.ImageCollection('FIRMS').select('T21').filterBounds(Australia)
+var FIRMS_season = FIRMS_season.filterDate('2019-09-01','2020-02-22');
+var FIRMS_season_count = ee.Image(FIRMS_season.count())
+
+var FIRMS_binary = FIRMS_season_count.eq(FIRMS_season_count).rename('FIRMS_binary_alert')
+var FIRMS_vector = FIRMS_binary.reduceToVectors({
+  geometry: Australia,
+  scale: 1000,
+  geometryType: 'polygon',
+  eightConnected: false,});
+Map.addLayer(FIRMS_vector,{pallete: '937d14', strokeWidth: 1}, 'FIRMS Hotspots Season Vectorized',0);
+
+var FIRMS_FIRE= FIRMS_season_count.eq(0)
 var FIRMS_NO_FIRE = FIRMS_FIRE.unmask(-9999).clip(Australia)
 var FIRMS_NO_FIRE= FIRMS_NO_FIRE.updateMask(FIRMS_NO_FIRE.eq(-9999))
 
@@ -197,17 +214,14 @@ var no_burnt_vectors = FIRMS_NO_FIRE.reduceToVectors({
   eightConnected: false,
   maxPixels: 50000000000});
 
+Map.addLayer(no_burnt_vectors.draw({color: 'blue', strokeWidth: 1}),{},'FIRMS No-Fire Area Vectorized', 0);
 var NoFireRandomPoints = ee.FeatureCollection.randomPoints(no_burnt_vectors,300);
-Map.addLayer(no_burnt_vectors.draw({color: 'blue', strokeWidth: 1}),{},'No Fire Area', 0);
 
-// This function creates a new feature from the centroid of the geometry.
-var getProperties = function(feature) {
-  var point = feature.geometry();
+var getProperties = function(feature) {var point = feature.geometry();
   return ee.Feature(point).set('Start_Date',Start_I).set('fire',0)};
 
-// Map the centroid getting function over the features.
 var NoFirePointsPro = NoFireRandomPoints.map(getProperties);
-Map.addLayer(NoFirePointsPro,{color:'green'},'No-Fire Random Points', 0);
+//Map.addLayer(NoFirePointsPro,{color:'green'},'No-Fire Random Points', 0);
 
 //_______Merge Teaining Points______________________________-
 
@@ -215,6 +229,18 @@ var combinedFeatureCollection = NoFirePointsPro.merge(FireRandomPointsPro);
 
 Export.table.toDrive({
   collection: combinedFeatureCollection,
-  description:'AUS_Fire_Point_Oct_3',
+  description:'AUS_Points_Sep_1',
   fileFormat: 'CSV'});
+  
+  var point = ee.FeatureCollection("users/sulovaandrea/TrainingDataset")
+print('Number fo training dataset: ', point.size())
 
+var No_fire_point = point.filterMetadata("fire","equals",0)
+
+Map.addLayer(No_fire_point, {color:'649d66',size:1}, 'No-Fire Points',1);
+
+var active_fire_point = point.filterMetadata("fire","equals",1)
+//var active_fire_point = active_fire_point.filterMetadata("Start_Date","equals",'2019-09-01T00:00:00')
+Map.addLayer(active_fire_point, {color:'ffd31d',size:1}, 'Active Fire Points',1);
+
+Map.addLayer(ActiveFire, {palette: 'd63447'}, 'Active Fire S2',0);
