@@ -26,7 +26,7 @@ The dependent variable in this study is fire and non-fire occurrence locations. 
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_2.PNG)
 
 *The distribution of fire and no-point from the automated process
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_2.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_7.PNG)
 
 *An example of wildfire in pre-fire and post-fire RGB imagery and monthly active fire from the S-2 mis-sion for visual verification of fire points.
 
