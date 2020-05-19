@@ -1,6 +1,8 @@
-# Australian Wildfires - 
+# Australian Wildfires - a machine learning approach 
+
 **Exploratory analysis of wild-fires in Australia & a machine learning approach 
 for wildfire modeling in Google Earth Engine**
+
 The free remotely sensed data allows analyzing this disaster and therefore this thesis investigates the Australian wildfires based data from Earth observation with the respect to uncovering the general insights. In the last few years, machine learning (ML) has proven to be successful in many domains due to the capability of learning also from hidden relationships. 
 
 In this study, the overall objective is to create an automatized process of creating a fire training dataset at a continental level with an efficient computational expense for the ML algorithms. These results of fire occurrence locations and no-fire occurrence locations are mapped alongside with 15 fire causal factors. 
