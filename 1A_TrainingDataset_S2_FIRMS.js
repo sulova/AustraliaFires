@@ -234,5 +234,4 @@ Map.addLayer(No_fire_point, {color:'649d66',size:1}, 'No-Fire Points',1);
 
 var active_fire_point = point.filterMetadata("fire","equals",1)
 Map.addLayer(active_fire_point, {color:'ffd31d',size:1}, 'Active Fire Points',1);
-
 Map.addLayer(ActiveFire, {palette: 'd63447'}, 'Active Fire S2',0);
