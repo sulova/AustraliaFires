@@ -1,3 +1,9 @@
+```ruby
+  def foo
+    puts 'bar'
+  end
+```
+
 # Australian Wildfires - a machine learning approach 
 
 **Exploratory analysis of wild-fires in Australia & a machine learning approach 
