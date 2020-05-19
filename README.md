@@ -35,18 +35,18 @@ The dependent variable in this study is fire and non-fire occurrence locations. 
 ### Independent Variables	
 Creating the selection of independent variables, which are also known as predic-tors or conditioning factors,  is a critical step in predictive modelling. For this study, 15 conditioning factors are selected based on both the field observation found in different studies and available satellite data on the GEE platform. These applied wildﬁre conditioning factors can be divided into five categories, such as topog-raphy, vegetation type, infrastructure, meteorology and socio-economic factors. Table 3 summarizes each of the datasets used in this study.
 
-*The list and description of variable datasets included in the study.
+*The list and description of variable datasets included in the study.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_3.PNG)
 
-*Topographical factors: elevation, aspect and slope .
+*Topographical factors: elevation, aspect and slope.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_4.PNG)
 
-*Climate factors: precipitation, maximum temperature and wind speed.
+*Climate factors: precipitation, maximum temperature and wind speed.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_5.PNG)
 
 *Environmental factors: land cover (the legend is in Appendix), soil depth, soil moisture, 
-drought severity index and NDVI.
+drought severity index and NDVI.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_6.PNG)
 
-*Socio-economic factors: GHM, population, electric lines and distance from roads.
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_7.PNG)
+*Socio-economic factors: GHM, population, electric lines and distance from roads.*
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_66.PNG)
