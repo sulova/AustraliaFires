@@ -6,7 +6,6 @@
 var Australia_shp = ee.FeatureCollection("users/sulovaandrea/Australia_Polygon");
 
 //______Import States in Australia____________________________________________
-
 var Capital_AUS = Australia_shp.filterMetadata("name","equals","Australian Capital Territory");
 var Victoria = Australia_shp.filterMetadata("name","equals","Victoria")
 var NewSouthWales = Australia_shp.filterMetadata("name","equals","New South Wales")
@@ -50,7 +49,7 @@ var FIRMS_vector = FIRMSbinary.reduceToVectors({
 
 Map.addLayer(FIRMS_vector,{pallete: '937d14', strokeWidth: 2}, 'FIRMS Monthly Hotspot-Vector',0);
 
-//______Sentinel-2 Collection____________________________________________________
+//______Sentinel-2____________________________________________________
 
 var S2_Collection = ee.ImageCollection('COPERNICUS/S2');
 var S2_Collection_Date = ee.ImageCollection(S2_Collection.filterDate(Start_I,End_I)
@@ -88,7 +87,7 @@ var WaterMask= Water_Mask_Value.updateMask(Water_Mask_Value.eq(1))
 var S2_Masks = Collection_CloudMask.updateMask(Water_Mask_Value.eq(0));
 Map.addLayer(S2_Masks, vis , "Active Fire Cloud Water Mask",0)
 
-//_____FIRES  AREAS SWIR2 (B12 & B5)____________________________________
+//___FIRES  AREAS SWIR2 (B12 & B5)____________________________________
 
 var ActiveFire_threshold = 2;
 
@@ -148,7 +147,7 @@ var postNBR = postNBR.multiply(1000);
 Map.addLayer(preNBR.sldStyle(Classes),{} , "Pre-Fire for NBR",0)
 Map.addLayer(postNBR.sldStyle(Classes),{} , "Post-Fire for NBR",0)
 
-//__________________ Vector mask of burnt areas_________________________________
+//__ Vector mask of burnt areas_________________________________
 
 // NBR value less than which is considered a burnt Areas
 var BurnedValue = 440;
@@ -183,8 +182,7 @@ var getProperties = function(feature) {var point = feature.geometry();
 var FireRandomPointsPro = FireRandomPoints.map(getProperties); 
 //Map.addLayer(FireRandomPointsPro, {color: 'red', strokeWidth: 1},'Fire Random Points',0);
 
-//__________________ Vector mask of no fire areas_________________________________
-
+//__Vector mask of No fire areas_________________________________
 var FIRMS_season = ee.ImageCollection('FIRMS').select('T21').filterBounds(Australia)
 var FIRMS_season = FIRMS_season.filterDate('2019-09-01','2020-02-22');
 var FIRMS_season_count = ee.Image(FIRMS_season.count())
@@ -217,15 +215,15 @@ var getProperties = function(feature) {var point = feature.geometry();
 var NoFirePointsPro = NoFireRandomPoints.map(getProperties);
 //Map.addLayer(NoFirePointsPro,{color:'green'},'No-Fire Random Points', 0);
 
-//_______Merge Teaining Points______________________________-
-
+//_____Merge Teaining Points______________________________-
 var combinedFeatureCollection = NoFirePointsPro.merge(FireRandomPointsPro);
 
 Export.table.toDrive({
   collection: combinedFeatureCollection,
-  description:'AUS_Points_Sep_1',
+  description:'AUS_Sep_Part_1',
   fileFormat: 'CSV'});
-  
+
+// Load CSV file of australian fire/no-fire points for checking
 var point = ee.FeatureCollection("users/sulovaandrea/TrainingDataset")
 print('Number fo training dataset: ', point.size())
 
@@ -234,4 +232,5 @@ Map.addLayer(No_fire_point, {color:'649d66',size:1}, 'No-Fire Points',1);
 
 var active_fire_point = point.filterMetadata("fire","equals",1)
 Map.addLayer(active_fire_point, {color:'ffd31d',size:1}, 'Active Fire Points',1);
+
 Map.addLayer(ActiveFire, {palette: 'd63447'}, 'Active Fire S2',0);
