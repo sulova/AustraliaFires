@@ -58,16 +58,16 @@ drought severity index and NDVI.*
 
 Predictive modeling is the overall concept of building a ML model that is capable of making predictions. Typically, such a model includes a machine learning algo-rithm that learns certain properties from a training dataset in order to make those predictions. In this study, the RF model and the training dataset present the wild-fires in Australia during the 2019-2020 season.
 
+*The fire susceptibility map using the RF model.*
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_8.PNG)
+
 *The fire susceptibility map with classes using the RF model.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_9.PNG)
-
-*The fire susceptibility map using the RF model.*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_10.PNG)
 
 ## Importance of conditioning factors
 
 The variable importance was calculated based on the training dataset
 
 *The variable importance analysis based on the RF model.*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_8.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_10.PNG)
 
