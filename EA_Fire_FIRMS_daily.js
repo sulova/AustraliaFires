@@ -70,4 +70,3 @@ Map.setOptions('mapStyle', {mapStyle: mapStyle});
     
 
 
-
