@@ -11,8 +11,7 @@ In this study, the overall objective is to create an automatized process of crea
 
 All ML approaches were trained using 70% of the wildﬁre dataset and tested using the remaining 30% of the dataset. The ML algorithm with the best performance, the RF model, helps to identify the driving factors using variable importance analysis based on ML methods. Typically, this model can learn certain properties from a training dataset to make predictions. Thus, the re-sults of this thesis study disclose the fire occurrence probability in Australia as well as identified the driving factors and their dynamic influence on fire occurrence. Improved preventive measures can be implemented in the fire-prone areas to reduce the risk of fire in Australia by considering the factors identified in this study.	 
 
-*The flowchart of processes employed in the study for generating the*
-predictive model in GEE.
+*The flowchart of processes employed in the study for generating the predictive model in GEE.*
 
 
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_1.PNG)
