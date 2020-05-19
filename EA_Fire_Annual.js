@@ -34,7 +34,7 @@ var chart_year= ui.Chart.image.seriesByRegion({imageCollection:maps,
                                                        pointSize: 3,
                                                        series: {0: {color: 'FF0000'}}});
                                                        
-                                                      
+                                                     
                                                        
 print(chart_year)                              
 //Map.addLayer(maps.max().clip(Australia), {min:0,max:1,palette:['red']}, 'Fires');
