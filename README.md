@@ -25,10 +25,10 @@ The dependent variable in this study is fire and non-fire occurrence locations. 
 *The flowchart of ﬁre occurrence locations applied in methodology.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_2.PNG)
 
-*The distribution of fire and no-point from the automated process
+*The distribution of fire and no-point from the automated process*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_7.PNG)
 
-*An example of wildfire in pre-fire and post-fire RGB imagery and monthly active fire from the S-2 mis-sion for visual verification of fire points.
+*An example of wildfire in pre-fire and post-fire RGB imagery and monthly active fire from the S-2 mis-sion for visual verification of fire points.*
 
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_11.PNG)
 
@@ -50,3 +50,24 @@ drought severity index and NDVI.*
 
 *Socio-economic factors: GHM, population, electric lines and distance from roads.*
 ![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_66.PNG)
+
+
+# Results
+
+## Predictive model
+
+Predictive modeling is the overall concept of building a ML model that is capable of making predictions. Typically, such a model includes a machine learning algo-rithm that learns certain properties from a training dataset in order to make those predictions. In this study, the RF model and the training dataset present the wild-fires in Australia during the 2019-2020 season.
+
+*The fire susceptibility map with classes using the RF model.*
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_9.PNG)
+
+*The fire susceptibility map using the RF model.*
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_10.PNG)
+
+## Importance of conditioning factors
+
+The variable importance was calculated based on the training dataset
+
+*The variable importance analysis based on the RF model.*
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/Cap_8.PNG)
+
