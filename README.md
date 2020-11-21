@@ -80,7 +80,7 @@ As seen below, the accuracy of the CART model increases with the number of leaf 
 The variable importance was calculated based on the training dataset
 
 *The variable importance analysis based on the RF model.*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/RF.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/VI.png)
 
 To identify the extent to which one variable relates to another variable, it is important to compute the correlations using the Pearson method. This measures the linear relationship between variables and has a value between 1 and -1. The mutual relationships among variables by visualizing the correlation matrix as a heatmap is shown below.  Each cell in the correlation matrix is a ‘correlation coefficient‘ between the two variables corresponding to the row and column of the cell. A large positive correlation (near to 1.0) is indicated between NDVI and precipitation, i.e., if the value of one of the variables increases, the value of the other variable increases as well. Most of the values are near to 0 (both positive or negative) and indicates the absence of any correlation between variables, and hence those variables are independent of each other
 
