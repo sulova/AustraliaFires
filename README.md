@@ -70,10 +70,10 @@ The widely used accuracy assessment method is used to evaluate the performance o
 As seen below, the accuracy of the CART model increases with the number of leaf nodes until the number of 300 leaf nodes is reached. From more than 300 leaf nodes, the accuracy of the model is almost constant. The results of the RF model shown in Figure 16 reveals that with the increasing number of trees, the accuracy is increased as well. Thus, the optimal number of trees applied in the RF model in this study is 300 trees.
 
 *The accuracy of CART models with a different number of leaf nodes applied.*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/CART.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/CART.png)
 
 *The accuracy of RD models with a different number of trees applied*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/RF.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/RF.png)
 
 ## Importance of conditioning factors
 
@@ -85,4 +85,4 @@ The variable importance was calculated based on the training dataset
 To identify the extent to which one variable relates to another variable, it is important to compute the correlations using the Pearson method. This measures the linear relationship between variables and has a value between 1 and -1. The mutual relationships among variables by visualizing the correlation matrix as a heatmap is shown below.  Each cell in the correlation matrix is a ‘correlation coefficient‘ between the two variables corresponding to the row and column of the cell. A large positive correlation (near to 1.0) is indicated between NDVI and precipitation, i.e., if the value of one of the variables increases, the value of the other variable increases as well. Most of the values are near to 0 (both positive or negative) and indicates the absence of any correlation between variables, and hence those variables are independent of each other
 
 *The correlation matrix of causal factors as a heatmap.*
-![Image](https://github.com/sulova/AustraliaFires/blob/master/image/PCA.PNG)
+![Image](https://github.com/sulova/AustraliaFires/blob/master/image/PCA.png)
