@@ -1,7 +1,7 @@
 # Australian Wildfires - a machine learning approach 
 
 if you find this repository useful in your research, please consider citing the following papers. Thank you.
-Sulova, Andrea, and Jamal Jokar Arsanjani. 2021. "Exploratory Analysis of Driving Force of Wildfires in Australia: An Application of Machine Learning within Google Earth Engine" Remote Sensing 13, no. 1: 10. https://doi.org/10.3390/rs13010010
+- Sulova, Andrea, and Jamal Jokar Arsanjani. 2021. "Exploratory Analysis of Driving Force of Wildfires in Australia: An Application of Machine Learning within Google Earth Engine" Remote Sensing 13, no. 1: 10. https://doi.org/10.3390/rs13010010
 
 **Exploratory analysis of wild-fires in Australia & a machine learning approach 
 for wildfire modeling in Google Earth Engine**
